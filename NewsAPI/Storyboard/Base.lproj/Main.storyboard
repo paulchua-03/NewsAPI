@@ -106,6 +106,9 @@
                                 <segment title="United States"/>
                                 <segment title="Canada"/>
                             </segments>
+                            <connections>
+                                <action selector="segmentControlPressed:" destination="Ymc-f8-MRu" eventType="valueChanged" id="A91-n3-FRd"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
                     <connections>

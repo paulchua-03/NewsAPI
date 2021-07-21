@@ -32,8 +32,24 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.newsTableView.delegate = self
         self.newsTableView.dataSource = self
         
-        // Call News API request
-        getNews() { response, error in
+        // Set selected Country name
+        let countryIndex = self.countrySegmentedControl.selectedSegmentIndex
+        guard let countryName = self.countrySegmentedControl.titleForSegment(at: countryIndex) else {
+            return
+        }
+        guard let countryCode: String = getCountry(country: countryName) else {
+            // Display error
+            let alert = UIAlertController(title: Globals.appTitle, message: Errors.countrySelectionError, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: Globals.close, style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        print("Index: \(countryIndex)")
+        print("Country: \(countryName)")
+        
+        // Call getNews function
+        getNews(country: countryCode) { response, error in
             if (error == nil) {
                 for article in response {
                     let newsModel = NewsModel(countryName: "US", title: article["title"].stringValue, description: article["description"].stringValue, imageUrl: article["urlToImage"].stringValue)
@@ -51,23 +67,70 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // MARK: - FUNCTIONS
-    func getNews(completionHandler: @escaping ([JSON], NSError?) -> ()) {
-        sendRequest(url: Globals.newsAPIUrl, completionHandler: completionHandler)
+    func getCountry(country: String) -> String {
+        switch country {
+            case "United States":
+                return "us"
+            case "Canada":
+                return "ca"
+            default:
+                return "us"
+        }
+    }
+    
+    func getNews(country: String, completionHandler: @escaping ([JSON], NSError?) -> ()) {
+        print("\(Globals.newsAPIUrl)country=\(country)&apikey=\(Globals.newsAPIKey)")
+        sendRequest(url: "\(Globals.newsAPIUrl)country=\(country)&apikey=\(Globals.newsAPIKey)", completionHandler: completionHandler)
     }
     
     func sendRequest(url: String, completionHandler: @escaping ([JSON], NSError?) -> ()) {
         // Send GET News API request from server
-        AF.request("\(url)country=us&apikey=\(Globals.newsAPIKey)").responseJSON { response in
+        AF.request(url).responseJSON { response in
             switch response.result {
                 case .success(let value):
                     let responseJson = JSON(value)
+                    print(responseJson)
                     completionHandler(responseJson["articles"].arrayValue, nil)
                 case .failure(let error):
                     completionHandler([], error as NSError)
             }
         }
     }
-
+    
+    //MARK: - SEGMENTED CONTROL
+    @IBAction func segmentControlPressed(_ sender: Any) {
+        // Set selected Country name
+        let countryIndex = self.countrySegmentedControl.selectedSegmentIndex
+        guard let countryName = self.countrySegmentedControl.titleForSegment(at: countryIndex) else {
+            return
+        }
+        guard let countryCode: String = getCountry(country: countryName) else {
+            // Display error
+            let alert = UIAlertController(title: Globals.appTitle, message: Errors.countrySelectionError, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: Globals.close, style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        self.newsArray = []
+        
+        // Call getNews function
+        getNews(country: countryCode) { response, error in
+            if (error == nil) {
+                for article in response {
+                    let newsModel = NewsModel(countryName: "US", title: article["title"].stringValue, description: article["description"].stringValue, imageUrl: article["urlToImage"].stringValue)
+                    self.newsArray.append(newsModel)
+                }
+                self.newsTableView.reloadData()
+            } else {
+                // Display error
+                let alert = UIAlertController(title: Globals.appTitle, message: Errors.getNewsFailed, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Globals.close, style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
     // MARK: - TABLE VIEW
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

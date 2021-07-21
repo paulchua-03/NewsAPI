@@ -14,5 +14,6 @@ struct Errors {
     static var getNewsFailed = "Failed to get the News!"
     static var getNewsDetailsFailed = "Failed to get the News Details!"
     static var newsModelError = "Error creating News Model!"
+    static var countrySelectionError = "Error selecting Country!"
     
 }
