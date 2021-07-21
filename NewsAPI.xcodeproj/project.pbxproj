@@ -20,6 +20,7 @@
 		49B7DD0426A7F01800ADFCF8 /* NewsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B7DD0326A7F01800ADFCF8 /* NewsDetailsViewController.swift */; };
 		49B7DD0A26A8113500ADFCF8 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B7DD0926A8113500ADFCF8 /* APIHandler.swift */; };
 		49B7DD0C26A811AA00ADFCF8 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B7DD0B26A811AA00ADFCF8 /* NewsViewModel.swift */; };
+		49B7DD1126A83EFF00ADFCF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49B7DD1026A83EFE00ADFCF8 /* GoogleService-Info.plist */; };
 		54B3CCDE7A5D4466319E12E3 /* Pods_NewsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45AA2767B5D01D4B78BE8A1 /* Pods_NewsAPI.framework */; };
 		9726B3C6B82A80207B656C8C /* Pods_NewsAPITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046EEA74A599D5A38BBE3C6B /* Pods_NewsAPITests.framework */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		49B7DD0326A7F01800ADFCF8 /* NewsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailsViewController.swift; sourceTree = "<group>"; };
 		49B7DD0926A8113500ADFCF8 /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		49B7DD0B26A811AA00ADFCF8 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		49B7DD1026A83EFE00ADFCF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F4B1A5D7C08A88213853096 /* Pods-NewsAPITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsAPITests.debug.xcconfig"; path = "Target Support Files/Pods-NewsAPITests/Pods-NewsAPITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C45AA2767B5D01D4B78BE8A1 /* Pods_NewsAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -177,6 +179,7 @@
 		4969F2FB26A7008F00D5FBB6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				49B7DD1026A83EFE00ADFCF8 /* GoogleService-Info.plist */,
 				4969F2D426A6FCDA00D5FBB6 /* AppDelegate.swift */,
 				4969F2D626A6FCDA00D5FBB6 /* SceneDelegate.swift */,
 				4969F2DD26A6FCDF00D5FBB6 /* Assets.xcassets */,
@@ -217,6 +220,7 @@
 				4969F2CE26A6FCDA00D5FBB6 /* Frameworks */,
 				4969F2CF26A6FCDA00D5FBB6 /* Resources */,
 				B67C03FD980A77FC5CBFD874 /* [CP] Embed Pods Frameworks */,
+				49B7DD0F26A83C0000ADFCF8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -291,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4969F2E126A6FCDF00D5FBB6 /* LaunchScreen.storyboard in Resources */,
+				49B7DD1126A83EFF00ADFCF8 /* GoogleService-Info.plist in Resources */,
 				4969F2DE26A6FCDF00D5FBB6 /* Assets.xcassets in Resources */,
 				4969F2DC26A6FCDA00D5FBB6 /* Main.storyboard in Resources */,
 			);
@@ -306,6 +311,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		49B7DD0F26A83C0000ADFCF8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		9F3A8A9E00C704FBCF830C91 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -561,6 +583,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				INFOPLIST_FILE = "$(SRCROOT)/NewsAPI/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

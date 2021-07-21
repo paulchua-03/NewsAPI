@@ -33,7 +33,7 @@ class NewsDetailsViewController: UIViewController {
     
     // MARK: - FUNCTIONS
     func displayData() {
-        // Set UI properties
+        // Set UI properties        
         let transformer = SDImageResizingTransformer(size: CGSize(width: 398, height: 150), scaleMode: .fill)
         urlImageView?.sd_setImage(with: URL(string: self.article?.urlToImage ?? ""), placeholderImage: nil, options: SDWebImageOptions.refreshCached, context: [.imageTransformer
             : transformer])
